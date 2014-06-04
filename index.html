@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Dialog - Basic modal</title>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+ 
+</head>
+<body>1111111当点击一个
+按钮时，弹出一个DIV 窗口。窗口在不同显
+示器分辨率下都上下居中， 显示保存成功。提示后自动消失。。希望大家帮帮我 写代码的时候 写
+点注释当点击一个按钮时，弹出一个DIV 窗口。窗口在不同显示器分辨率下都上下居中， 显示保存成功。提
+示后自动消失。。希望大家帮帮我 写代码的时候 写点注释当点击一个按钮时，弹出一个DIV 窗口。窗口在不同显示
+器分辨率下都上下居中， 显示保存成功。提示后自动消失。。希望大家帮帮我 写代码的时候 写点注释当点击一个按
+钮时，弹出一个DIV 窗口。
+窗口在不同显示器分辨率下都上下居中， 显示保存成功。提示后自动消失。。希望大家帮帮我 写代码的时候 写点注释
+   <div id="dialog" style="font-size: 16px; line-height: 160px; color: #0000ff; text-align: center">
+        保存成功！
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#dialog").dialog({ title: '提示', autoOpen: true, width: 300, height: 200, resizable: false, modal: true, bigframe: false });
+            window.setTimeout(function() { $("#dialog").css("display", "none"); }, 3000);
+        });
+    </script>
+ 
+</body>
+</html>
