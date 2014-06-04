@@ -7,4 +7,5 @@ define('RUNTIME_PATH','./Runtime/');
 
 define('ROOT','/32/');
 
+
 require '../onethink/ThinkPHP/ThinkPHP.php';
