@@ -7,7 +7,7 @@
  * @return integer 0-未登录，大于0-当前登录用户ID
  */
 function is_login(){
-	$user = session('user_auth');
+	$user = session('user');
 	if (empty($user)) {
 		return 0;
 	} else {
