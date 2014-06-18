@@ -28,7 +28,9 @@ class PublicController extends Action{
 			}
 			
 		}else{
-			
+			if(is_login()){
+				$this->redirect('Index/index');
+			}
 			$this->display();
 		}
 	}

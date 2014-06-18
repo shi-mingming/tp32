@@ -2,9 +2,9 @@
 // 本类由系统自动生成，仅供测试用途
 namespace Admin\Controller;
 
-use Think\Action;
+use Admin\Controller;
 
-class IndexController extends Action {
+class IndexController extends BaseController {
 	public function index() {
 		
 		dump(session('user'));

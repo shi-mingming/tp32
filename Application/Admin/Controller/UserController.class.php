@@ -2,11 +2,10 @@
 
 namespace Admin\Controller;
 
-use Think\Action;
+use Admin\Controller;
 
 
-class UserController extends Action{
-	
+class UserController extends BaseController{
 	
 	//用户管理列表页面
 	public function manage(){
@@ -22,13 +21,10 @@ class UserController extends Action{
 		
 		
 		if($total>$listRows){
-			//$page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
-			
 			$page->setConfig(
 				array(
-					'theme'=>'<li>%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%',
-					'header'=>'',
-					
+					//'theme'=>'<li>%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%',
+					//'header'=>'',
 			));
 		}
 		$p =$page->show();
@@ -45,5 +41,31 @@ class UserController extends Action{
 		
 		
 		$this->display();
+	}
+	
+	//修改密码提交 
+	public function submitPassword(){
+	
+		$oldpassword=I('post.oldpassword');
+		empty($oldpassword) && $this->error('请输入原密码!');
+		
+		$data['password']=I('post.password');
+		empty($data['password']) && $this->error('请输入新密码!');
+		
+		$repassword=I('post.repassword');
+		empty($repassword) && $this->error('请输入确认密码!');
+		
+		if($data['password']!==$repassword){
+			$this->error('您输入的确认密码和新密码不一致!');
+		}
+		echo UID;
+		$this->error(rand_string(4).UID);
+		
+		
+		$user=M('admin_user');
+		
+		
+		
+		
 	}
 }

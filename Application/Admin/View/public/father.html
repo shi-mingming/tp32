@@ -17,7 +17,7 @@
     html, body {
         height: 100%;
     }
-    </style>
+    </style><script src="__PUBLIC__/js/jquery.js"></script>
   </head>
   <body>
     <div class="navbar navbar-fixed-top">
@@ -71,7 +71,7 @@
             <ul class="nav nav-list">
               <li class="nav-header"><i class="icon-wrench"></i> 管理</li>
               	<li><a href="__MODULE__/User/manage/">管理用户</a></li>
-              	<li><a href="__MODULE__/User/manage/">修改密码</a></li>
+              	<li><a href="__MODULE__/User/updatePassword/">修改密码</a></li>
               <li><a href="users.html">用户</a></li>
               <li><a href="roles.html">角色</a></li>
               <li class="nav-header"><i class="icon-signal"></i> 统计</li>
@@ -107,12 +107,13 @@
 
     </div>
 
-    <script src="__PUBLIC__/js/jquery.js"></script>
-	<script src="__PUBLIC__/js/jquery.flot.js"></script>
-	<script src="__PUBLIC__/js/jquery.flot.resize.js"></script>	
+    
+	<!-- <script src="__PUBLIC__/js/jquery.flot.js"></script>
+	<script src="__PUBLIC__/js/jquery.flot.resize.js"></script>	 -->
 	<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC__/js/jquery.form.js">
 	<script>
-	$(function () {
+	/* $(function () {
 		var data = [
 		{
 			label: 'Page Views',
@@ -204,7 +205,7 @@
 		});
 		$.plot( $("#placeholder") , data, options );
 		$.plot( $("#visits") , dataVisits, optionsVisits );
-	});
+	}); */
 	</script>
   </body>
 </html>
