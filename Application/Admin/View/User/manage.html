@@ -25,11 +25,11 @@
 					<td>{#$vo.times|date="Y-m-d H:i:s",####}</td>
 					<td>{#$vo.status|show_status_op#}</td>
 					<td><if condition="$vo['id'] eq 1">默认帐号<else />
-						<div class="btn-group">
+						<div class="btn-group" style="visibility:inherit">
 							<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">操作 <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#"><i class="icon-pencil"></i> 编辑</a></li>
-								<li><a href="#"><i class="icon-trash"></i> 删除</a></li>
+								<li><a href="{#:U('del?id='.$vo['id'])#}"><i class="icon-trash"></i> 删除</a></li>
 								<li><a href="#"><i class="icon-user"></i> Details</a></li>
 								<li class="nav-header">Permissions</li>
 								<li><a href="#"><i class="icon-lock"></i> Make <strong>Admin</strong></a></li>

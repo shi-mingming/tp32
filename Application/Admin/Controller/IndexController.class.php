@@ -9,7 +9,7 @@ class IndexController extends BaseController {
 		
 		dump(session('user'));
 		dump($_SESSION);
-		$this->assign('user',session('user'));
+		
 		$this->display();
 		
 	}
