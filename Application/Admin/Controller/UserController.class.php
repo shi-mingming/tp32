@@ -134,6 +134,18 @@ class UserController extends BaseController{
 		
 	}
 	
+	
+	public function loginLog(){
+		
+		
+		$loginLog=M("adminLoginLog");
+		
+		$loglist=$loginLog->where()->select();
+		
+		$this->assign('list',$loglist);
+		$this->display();
+	}
+	
 	//添加规则
 	public function addrule(){
 		

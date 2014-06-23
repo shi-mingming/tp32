@@ -22,7 +22,14 @@ class PublicController extends Action{
 			
 			if($user['password']==md5(md5($password).$user['dm'])){
 				session('user',array('username'=>$username,'user_id'=>$user['id']));
-				$this->success('登录成功!',U('Index/index'));
+				
+				$loginLog=M("adminLoginLog");
+				$data['ip']=get_clients_ip(0);
+				$data['uid']=$user['id'];
+				$data['times']=time();
+				$loginLog->add($data);
+				$this->success('登录成功!',U('Index/index'),111);
+				
 			}else{
 				$this->error('密码错误');
 			}
@@ -38,7 +45,7 @@ class PublicController extends Action{
 	
 	public function logout(){
 		if(is_login()){
-			D('Member')->logout();
+			//D('Member')->logout();
 			session('[destroy]');
 			$this->success('退出成功！', U('login'));
 		} else {

@@ -31,3 +31,11 @@ function show_status_op($status) {
 }
 
 
+//根据ID查询管理员用户名
+
+function admin_name($id){
+	
+	$admin_user=M('admin_user');
+	$username=$admin_user->where('id='.$id)->getField('username');
+	return $username;
+}
