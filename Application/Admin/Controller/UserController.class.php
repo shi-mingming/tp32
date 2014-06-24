@@ -9,7 +9,7 @@ class UserController extends BaseController{
 	
 	//用户管理列表页面
 	public function manage(){
-		$listRows=1;//每页显示数
+		/* $listRows=1;//每页显示数
 		
 		$User=M("Admin_user");
 		$total=$User->field('id')->count();//总数
@@ -27,7 +27,9 @@ class UserController extends BaseController{
 			));
 		}
 		$p =$page->show();
-		$this->assign('_page', $p? $p: '');
+		$this->assign('_page', $p? $p: ''); */
+		
+		$list=parent::lists('Admin_user','','',1);
 		$this->assign('list',$list);
 		$this->display();
 	}
@@ -138,11 +140,8 @@ class UserController extends BaseController{
 	public function loginLog(){
 		
 		
-		$loginLog=M("adminLoginLog");
-		
-		$loglist=$loginLog->where()->select();
-		
-		$this->assign('list',$loglist);
+		$list=parent::lists('adminLoginLog');
+		$this->assign('list',$list);
 		$this->display();
 	}
 	
