@@ -11,6 +11,13 @@ class BaseController extends Action{
 			$this->assign('user',session('user'));
 			define('UID', is_login());
 			
+			
+			$auth=new \Think\Auth();
+			if(!$auth->check(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME,UID) && UID>1){
+				$this->error('你没有权限');
+			}
+			
+			
 		}
 	}
 	
@@ -41,7 +48,7 @@ class BaseController extends Action{
 			$order=$where['order'];
 			unset($where['order']);
 		}
-		print_r($where);
+		//print_r($where);
 		
 		$total=$dm->field('id')->where($where)->count();//总数
 		$page = new \Common\Page($total, $listRows, $REQUEST);

@@ -152,11 +152,11 @@ class UserController extends BaseController{
 			
 			$data['title']=I('post.title');
 			empty($data['title']) && $this->error('请输入行为名称!');
-				
+			
 			$data['name']=I('post.name');
 			empty($data['name']) && $this->error('请输入行为标识!');
-				
-				
+			
+			
 			$rule=M('think_auth_rule');
 			if($rule->create()){
 				if($result=$rule->add($ddata)){
@@ -169,7 +169,7 @@ class UserController extends BaseController{
 			}else{
 				$this->error($rule->getError());
 			}
-				
+			
 			
 		}else{
 			
@@ -180,7 +180,7 @@ class UserController extends BaseController{
 	}
 	
 	//规则列表
-	public function rulemanage(){
+	public function rule_manage(){
 		
 		
 		$this->display();

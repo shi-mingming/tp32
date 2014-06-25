@@ -11,11 +11,13 @@ $(function(){
    	}
    	function complete(data){
    		if(data.status==1){
-   			$('#result').html(data.info).show();
-   			$('#form1').resetForm();
-   		}else{
-   			$('#result').html(data.info).show();
-   		}
+			$(".alert").attr("class","alert alert-success").show();
+			$('#result').html(data.info);
+			$('#userform').resetForm();
+		}else{
+			$(".alert").show();
+			$('#result').html(data.info);
+		}
    		
    	}
 })

@@ -53,6 +53,7 @@
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">角色 <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 				<li><a href="{#:U('User/addrule')#}">添加用户行为</a></li>
+				<li><a href="{#:U('User/rule_manage')#}">用户行为管理</a></li>
 					<li><a href="">新建角色</a></li>
 					<li class="divider"></li>
 					<li><a href="">管理角色</a></li>
@@ -71,20 +72,51 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header"><i class="icon-wrench"></i> 管理</li>
+              
               	<li><a href="{#:U(MODULE_NAME.'/user/manage')#}">管理用户</a></li>
               	<li><a href="{#:U(MODULE_NAME.'/user/updatePassword')#}">修改密码</a></li>
               <li><a href="{#:U(MODULE_NAME.'/user/loginLog')#}">登录日志</a></li>
               <li><a href="roles.html">角色</a></li>
+              
+              
+              
               <li class="nav-header"><i class="icon-signal"></i> 统计</li>
+              
               <li><a href="stats.html">通用</a></li>
-              <li><a href="user-stats.html">用户</a></li>
-              <li><a href="visitor-stats.html">访问者</a></li>
+              
+              
               <li class="nav-header"><i class="icon-user"></i> 资料</li>
-              <li><a href="my-profile.html">我的资料</a></li>
+              
               <li><a href="#">设置</a></li>
 			  <li><a href="{#:U(MODULE_NAME.'/Public/logout')#}">退出</a></li> 
 			  <!--  class="active" -->
             </ul>
+            <div class="accordion" id="accordion2">
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+Collapsible Group Item #1
+</a>
+</div>
+<div id="collapseOne" class="accordion-body collapse in">
+<div class="accordion-inner">
+Anim pariatur cliche...
+</div>
+</div>
+</div>
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+Collapsible Group Item #2
+</a>
+</div>
+<div id="collapseTwo" class="accordion-body collapse">
+<div class="accordion-inner">
+Anim pariatur cliche...
+</div>
+</div>
+</div>
+</div>
           </div>
         </div>
         <block name="right">
