@@ -1,0 +1,71 @@
+<extend name="Public:father" />
+<block name="right">
+<script language="JavaScript">
+
+        
+</script>
+        <div class="span9">
+		  <div class="row-fluid">
+			<div class="page-header">
+				<h1>用户<small>添加用户组</small></h1>
+			</div>
+			<form class="form-horizontal" id='userform' method="post" action="">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="role">用户组名称</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge" name="title" id="title" value="{#$info.title#}" />
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="description">状态</label>
+						<div class="controls">
+							<label class="radio inline">
+								<input type="radio" name="status" id="status" value="1" <if condition="($info['status'] eq 1) OR ($info['title'] eq '')">checked</if>>启用
+							</label>
+							<label class="radio inline">
+								<input type="radio" name="status" id="status" value="0" <if condition="($info['status'] eq 0) AND ($info['title'] neq '')">checked</if>>禁用
+							</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="description">权限</label>
+						<div class="controls">
+							<volist name="list" id="vo">
+							<label class="checkbox inline">
+								<input type="checkbox" class="auth_rules" id="rules[]" name="rules[]" value="{#$vo.id#}"> {#$vo.title#}
+							</label>
+							</volist>
+							
+						</div>
+					</div>
+					<div class="control-group">
+						 <div class="alert alert-error" style="display:none;">
+						    <button type="button" class="close" data-dismiss="alert">&times;</button>
+						    <div id="result">
+							
+							</div>
+ 					   </div>
+					</div>
+					<div class="form-actions"><input type="hidden" name="id" value="">
+						<input type="submit" class="btn btn-success btn-large" value="提交" /> <a class="btn" href="#" onclick="javascript:$('#userform').resetForm();">取消选择</a>
+					</div>					
+				</fieldset>
+			</form>
+		  </div>
+        </div>
+      </block>
+<block name="script">
+	<notempty name="info['id']">
+	 <script type="text/javascript">
+		$(document).ready(function(){
+			
+			var rules=[{#$info.rules#}];
+			$(rules).each(function(k,v){
+				$(".auth_rules[value='"+v+"']").prop('checked',true);
+			});
+			
+		});
+	</script>
+	</notempty>
+</block>

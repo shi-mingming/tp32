@@ -22,11 +22,7 @@ class BaseController extends Action{
 	}
 	
 	/**
-	 * 通用分页列表数据集获取方法,获取的数据集主要供tableList()方法用来生成表格列表
 	 *
-	 *  可以通过url参数传递where条件,例如:  index.html?name=asdfasdfasdfddds
-	 *  可以通过url空值排序字段和方式,例如: index.html?_field=id&_order=asc
-	 *  可以通过url参数r指定每页数据条数,例如: index.html?r=5
 	 *
 	 * @param sting|Model  $model   模型名或模型实例
 	 * @param array        $where   where查询条件
@@ -64,5 +60,40 @@ class BaseController extends Action{
 		$this->assign('_page', $p? $p: '');
 		return $list;
 	}
+	
+	
+	protected function del($model,$where,$result='删除成功!'){
+		
+		$dm=M($model);
+		if($dm->where($where)->delete()){
+			$this->success('删除成功!');
+		}else{
+			$this->error('删除失败!');
+		}
+		
+	}
+	
+	protected function getstatus($model,$status,$id){
+		$modelarr=array(
+				'1'=>'admin_user',
+		);
+		$dm=M($modelarr[$model]);
+		$data['status']=$status;
+		if($dm->where('id='.$id)->save($data)){
+			
+			
+			
+			$this->success('状态修改成功!');
+			
+		}else{
+			
+			$this->error('状态修改失败!');
+			
+		}
+		
+	}
+	
+	
+	
 }
 

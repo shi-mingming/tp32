@@ -25,12 +25,12 @@ class Page{
 
 	// 分页显示定制
     private $config  = array(
-        'header' => '<span class="rows">共 %TOTAL_ROW% 条记录</span>',
+        'header' => '<li class="previous disabled"><a href="#">共%TOTAL_ROW%条记录 %NOW_PAGE%/%TOTAL_PAGE%页</a></li>',
         'prev'   => '<<',
         'next'   => '>>',
         'first'  => '1...',
         'last'   => '...%TOTAL_PAGE%',
-        'theme'  => '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
+        'theme'  => '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
     );
 
     /**

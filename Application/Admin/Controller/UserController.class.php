@@ -29,7 +29,7 @@ class UserController extends BaseController{
 		$p =$page->show();
 		$this->assign('_page', $p? $p: ''); */
 		
-		$list=parent::lists('Admin_user','','',1);
+		$list=parent::lists('Admin_user','','',5);
 		$this->assign('list',$list);
 		$this->display();
 	}
@@ -105,7 +105,7 @@ class UserController extends BaseController{
 			//$data['username']=I('post.username');
 			$data['dm']=rand_string(4);
 			$data['password']=md5(md5($data['password']).$data['dm']);
-			$data['status']=0;
+			//$data['status']=1;
 			$data['times']=time();
 			if($user->validate($rules)->create()){
 				if($result=$user->add($ddata)){
@@ -127,18 +127,22 @@ class UserController extends BaseController{
 	}
 	
 	//删除用户
-	public function del($id){
-		if(M('admin_user')->delete($id)){
+	public function manage_del($id){
+		
+		$id=intval($id);
+		if($id){
+			$this->del('admin_user','id='.$id);
+		}
+		
+		/* if(M('admin_user')->delete($id)){
 			$this->success('删除成功!');
 		}else{
 			$this->error('删除失败'.$user->getError());
-		}
+		} */
 		
 	}
 	
-	
 	public function loginLog(){
-		
 		
 		$list=parent::lists('adminLoginLog');
 		$this->assign('list',$list);
@@ -146,7 +150,7 @@ class UserController extends BaseController{
 	}
 	
 	//添加规则
-	public function addrule(){
+	public function rule_add(){
 		
 		if(IS_POST){
 			
@@ -156,34 +160,165 @@ class UserController extends BaseController{
 			$data['name']=I('post.name');
 			empty($data['name']) && $this->error('请输入行为标识!');
 			
-			
+			$data['condition']=I('post.condition');
 			$rule=M('think_auth_rule');
 			if($rule->create()){
-				if($result=$rule->add($ddata)){
+				if($result=$rule->add($data)){
 					
-					$this->success('添加成功');
+					$this->success('添加成功',U('User/rule_manage'));
 				}else{
+					
 					$this->error('添加失败'.$rule->getError());
-					$this->display();
 				}
 			}else{
 				$this->error($rule->getError());
 			}
 			
-			
 		}else{
-			
 			
 			$this->display();
 		}
 		
 	}
 	
+	
 	//规则列表
 	public function rule_manage(){
 		
-		
+		$list=parent::lists('think_auth_rule','','',5);
+		$this->assign('list',$list);
 		$this->display();
 	}
+	public function rule_del(){
+		
+		$id=I('get.id','intval',0);
+		
+		if($id){
+			$this->del('think_auth_rule','id='.$id);
+		}
+		
+	}
+	
+	public function rule_edit(){
+		$id=I('get.id','intval',0);
+		if(IS_POST){
+			
+			$data['title']=I('post.title');
+			empty($data['title']) && $this->error('请输入行为名称!');
+			
+			$data['name']=I('post.name');
+			empty($data['name']) && $this->error('请输入行为标识!');
+			
+			$data['condition']=I('post.condition');
+			$rule=M('think_auth_rule');
+			if($result=$rule->where('id='.$id)->save($data)){
+				
+				$this->success('修改成功',U('User/rule_manage'));
+			}else{
+				$this->error('修改失败');
+				$this->display();
+			}
+				
+		}else{
+			
+			$rule=M('think_auth_rule');
+			$info=$rule->where('id='.$id)->find();
+			$this->assign('info',$info);
+			$this->display('rule_add');
+		}
+		
+	}
+	
+	
+	public function group_add(){
+		
+		if(IS_POST){
+			
+			$data['title']=I('post.title');
+			empty($data['title']) && $this->error('请输入用户组名称!');
+			$data['status']=I('post.status');
+			$data['rules']=I('post.rules');
+			$data['rules']=implode(',',$data['rules']);
+			$group=M('think_auth_group');
+			if($result=$group->add($data)){
+				
+				$this->success('添加成功',U('User/group_manage'));
+			}else{
+				
+				$this->error('添加失败'.$rule->getError());
+			}
+			
+		}else{
+			
+			$rule=M('think_auth_rule');
+			$list=$rule->select();
+			$this->assign('list',$list);
+		}
+		
+		$this->display();
+		
+	}
+	
+	public function group_manage(){
+		
+		$group=M('think_auth_group');
+		
+		$list=$group->select();
+		$this->assign('list',$list);
+		$this->display();
+	}
+	
+	public function group_del(){
+	
+		$id=I('get.id','intval',0);
+	
+		if($id){
+			$this->del('think_auth_group','id='.$id);
+		}
+	
+	}
+	
+	public function group_edit(){
+		$id=I('get.id','intval',0);
+		if(IS_POST){
+			
+			$data['title']=I('post.title');
+			empty($data['title']) && $this->error('请输入用户组名称!');
+			$data['status']=I('post.status');
+			$data['rules']=I('post.rules');
+			$data['rules']=implode(',',$data['rules']);
+			$group=M('think_auth_group');
+			if($result=$group->where('id='.$id)->save($data)){
+	
+				$this->success('修改成功',U('User/group_manage'));
+			}else{
+				$this->error('修改失败');
+				$this->display();
+			}
+	
+		}else{
+			$rule=M('think_auth_rule');
+			$list=$rule->select();
+			$this->assign('list',$list);
+			
+			$group=M('think_auth_group');
+			$info=$group->where('id='.$id)->find();
+			$this->assign('info',$info);
+			$this->display('group_add');
+		}
+	
+	}
+	
+	
+	public function status(){
+		
+		$id=I('get.id','intval',0);
+		$model=I('get.model','intval',0);
+		$status=I('get.status','intval',0);
+		$this->getstatus($model,$status,$id);
+		
+	}
+	
+	
 	
 }

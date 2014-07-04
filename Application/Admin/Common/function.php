@@ -12,10 +12,10 @@ function get_status_title($status = null){
 		return false;
 	}
 	switch ($status){
-		case -1 : return    '已删除';   break;
-		case 0  : return    '禁用';     break;
-		case 1  : return    '正常';     break;
-		case 2  : return    '待审核';   break;
+		case -1 : return    '<span class="label label-warning">vss</span>';   break;
+		case 0  : return    '<span class="label label-important" data="1">禁用</span>';     break;
+		case 1  : return    '<span class="label label-success" data="0">启用</span>';     break;
+		case 2  : return    '<span class="label label-inverse">待审核</span>';   break;
 		default : return    false;      break;
 	}
 }

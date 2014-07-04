@@ -7,8 +7,8 @@ use Admin\Controller;
 class IndexController extends BaseController {
 	public function index() {
 		
-		dump(session('user'));
-		dump($_SESSION);
+		//dump(session('user'));
+		//dump($_SESSION);
 		
 		$this->display();
 		

@@ -7,4 +7,7 @@ return array(
 		'__JS__'     => ROOT.'Public/Admin', // 增加新的JS类库路径替换规则 
 		),
 		
+		
+		'LIST_ROWS'=>20,
+		
 );

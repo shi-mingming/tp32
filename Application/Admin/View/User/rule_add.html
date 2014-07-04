@@ -9,24 +9,24 @@
 			<div class="page-header">
 				<h1>用户<small>添加用户行为</small></h1>
 			</div>
-			<form class="form-horizontal" id='userform' method="post" action="{#:U('User/addrule')#}">
+			<form class="form-horizontal" id='userform' method="post" action="">
 				<fieldset>
 					<div class="control-group">
 						<label class="control-label" for="role">行为名称</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="title" id="title" />
+							<input type="text" class="input-xlarge" name="title" id="title" value="{#$info.title#}" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="description">行为标识</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="name" id="name" />
+							<input type="text" class="input-xlarge" name="name" id="name" value="{#$info.name#}" />
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="description">行为规则</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge" name="condition" id="condition" />
+							<input type="text" class="input-xlarge" name="condition" id="condition" value="{#$info.condition#}" />
 						</div>
 					</div>
 					<div class="control-group">

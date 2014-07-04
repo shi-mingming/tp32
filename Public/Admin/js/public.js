@@ -13,11 +13,20 @@ $(function(){
    		if(data.status==1){
 			$(".alert").attr("class","alert alert-success").show();
 			$('#result').html(data.info);
-			$('#userform').resetForm();
+			if(data.url){
+				location.href=data.url;
+			}else{
+				$('#userform').resetForm();
+			}
+			
 		}else{
 			$(".alert").show();
 			$('#result').html(data.info);
 		}
    		
    	}
+   	
+
+   	
+   	
 })
