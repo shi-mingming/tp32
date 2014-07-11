@@ -1,58 +1,58 @@
 <extend name="Public:father" />
 <block name="right">
+
 <div class="span9">
 		  <div class="row-fluid">
 			<div class="page-header">
-				<h1>用户 <small>用户行为管理</small></h1>
+				<h1>设置 <small>栏目设置</small></h1>
 			</div>
 			<table class="table table-striped table-bordered table-condensed">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>行为名称</th>
-						<th>行为标识</th>
-						<th>行为规则</th>
-						<th>状态</th>
-						<th>操作</th>
+						<th width='20'></th>
+						<th width='30'>排序</th>
+						<th>名称</th>
+						<th width='100'></th>
+						<th width='100'>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-				
 				<volist name="list" id="vo">
 				<tr class="list-users">
-					<td>{#$vo.id#}</td>
-					<td>{#$vo.title#}</td>
-					<td>{#$vo.name#}</td>
-					<td>{#$vo.username#}</td>
-					<td data="{#$vo.id#}" class='status'>{#$vo.status|get_status_title#}</td>
+					<td></td>
+					<td>{#$vo.sort#}</td>
+					<td style="padding-left:{#$vo['level']*30#}px;"><img src="__PUBLIC__/img/join.gif">{#$vo.title#}　[ID:{#$vo.id#}]　[PID:{#$vo.pid#}]</td>
+					<td><a href="{#:U('add?pid='.$vo['id'])#}">添加子类</a></td>
 					<td>
 						<div class="btn-group" style="visibility:inherit">
 							<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">操作 <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="{#:U('rule_edit?id='.$vo['id'])#}"><i class="icon-pencil"></i> 编辑</a></li>
-								<li><a href="{#:U('rule_del?id='.$vo['id'])#}"><i class="icon-trash"></i> 删除</a></li>
-								<!-- <li class="nav-header">Permissions</li>
-								<li><a href="#"><i class="icon-lock"></i> Make <strong>User</strong></a></li> -->
+								 <li><a href="{#:U('edit?id='.$vo['id'])#}"><i class="icon-pencil"></i> 编辑</a></li> 
+								<li><a href="{#:U('manage_del?id='.$vo['id'])#}"><i class="icon-trash"></i> 删除</a></li>
 							</ul>
 						</div>
 					</td>
 				</tr>
 				</volist>
-				
+
 				</tbody>
 			</table>
 			<div class="pagination">{#$_page#}
 			</div>
-			<a href="{#:U('User/rule_add')#}" class="btn btn-success">添加用户行为</a>
+			<a href="{#:U('Category/add')#}" class="btn btn-success">添加新栏目</a>
 		  </div>
         </div>
+
         </block>
         <block name="script">
 		 <script type="text/javascript">
 		$(document).ready(function(){
+			
+		   //	$('#status').click(function(){
 		   	$('.status').click(function(){
+		   		//$.get("__CONTROLLER__/status/model/1/status/"+$(this).attr('data')+"/id/"+$(this).parent().attr('data'),function(data){
 		   			var infoid=$(this).attr('data');
-		   			$.get("{#:U(CONTROLLER_NAME.'/status/')#}?model=2&status="+$(this).children('span').attr('data')+"&id="+infoid,function(data){
+		   			$.get("{#:U(CONTROLLER_NAME.'/status/')#}?model=1&status="+$(this).children('span').attr('data')+"&id="+infoid,function(data){
 		   			if(data.status==1){
 		   				if($('.status[data='+infoid+']').children('span').attr('data')==1){
 		   					$('.status[data='+infoid+']').children('span').attr('class','label label-success').attr('data','0').html('启用');
@@ -69,3 +69,5 @@
 		});
 	</script>
 </block>
+
+

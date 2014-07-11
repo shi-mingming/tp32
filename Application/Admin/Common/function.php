@@ -39,3 +39,18 @@ function admin_name($id){
 	$username=$admin_user->where('id='.$id)->getField('username');
 	return $username;
 }
+
+
+function categoryicon($lever){
+	
+	$lever=$lever-1;
+	for($l=0;$l<$lever;$l++){
+		echo '　';
+	}
+	if($lever){
+		echo '├';
+	}
+}
+
+
+

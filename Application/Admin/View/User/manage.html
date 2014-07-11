@@ -17,7 +17,6 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php print_r($user);?>
 				<volist name="list" id="vo">
 				<tr class="list-users">
 					<td>{#$vo.id#}</td>
@@ -31,7 +30,7 @@
 								<!-- <li><a href="#"><i class="icon-pencil"></i> 编辑</a></li> -->
 								<li><a href="{#:U('manage_del?id='.$vo['id'])#}"><i class="icon-trash"></i> 删除</a></li>
 								<if condition="$user['user_id'] eq 1">
-								<li><a href="{#:U('manage_del?id='.$vo['id'])#}"><i class="icon-pencil"></i> 修改密码</a></li>
+								<li><a href="{#:U('admin_updatePassword?id='.$vo['id'])#}"><i class="icon-pencil"></i> 修改密码</a></li>
 								</if>
 								<!-- <li><a href="#"><i class="icon-user"></i> Details</a></li>
 								<li class="nav-header">Permissions</li>

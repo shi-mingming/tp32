@@ -10,4 +10,5 @@ return array(
 		
 		'LIST_ROWS'=>20,
 		
+		'ADMINISTRATOR_ID'=>1,
 );

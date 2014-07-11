@@ -83,17 +83,17 @@ class UserController extends BaseController{
 		if(IS_POST){
 			
 			
-			$data['username']=I('post.username');
-			empty($data['username']) && $this->error('请输入用户名!');
+			$_POST['username']=I('post.username');
+			empty($_POST['username']) && $this->error('请输入用户名!');
 			
-			$data['password']=I('post.password');
-			empty($data['password']) && $this->error('请输入新密码!');
+			$_POST['password']=I('post.password');
+			empty($_POST['password']) && $this->error('请输入新密码!');
 			
 			$repassword=I('post.repassword');
 			empty($repassword) && $this->error('请输入确认密码!');
-			if($data['password']!==$repassword){
+			if($_POST['password']!==$repassword){
 				$this->error('您输入的确认密码和新密码不一致!');
-			} 
+			}
 			$rules=array(
 					//array('username','require','请输入用户名!'),
 					array('username','/[\da-zA-Z]{6,12}/','用户名必须由6-12位的数字或字母组成'),
@@ -102,14 +102,14 @@ class UserController extends BaseController{
 			);
 			
 			$user=M('admin_user');
-			//$data['username']=I('post.username');
-			$data['dm']=rand_string(4);
-			$data['password']=md5(md5($data['password']).$data['dm']);
-			//$data['status']=1;
-			$data['times']=time();
+			//$_POST['username']=I('post.username');
+			$_POST['dm']=rand_string(4);
+			$_POST['password']=md5(md5($_POST['password']).$_POST['dm']);
+			//$_POST['status']=1;
+			$_POST['times']=time();
 			if($user->validate($rules)->create()){
-				if($result=$user->add($ddata)){
-					$this->success('添加成功');
+				if($result=$user->add()){
+					$this->success('添加成功',U('User/manage'));
 				}else{
 					$this->error('添加失败'.$user->getError());
 					$this->display();
@@ -154,16 +154,16 @@ class UserController extends BaseController{
 		
 		if(IS_POST){
 			
-			$data['title']=I('post.title');
-			empty($data['title']) && $this->error('请输入行为名称!');
+			$_POST['title']=I('post.title');
+			empty($_POST['title']) && $this->error('请输入行为名称!');
 			
-			$data['name']=I('post.name');
-			empty($data['name']) && $this->error('请输入行为标识!');
+			$_POST['name']=I('post.name');
+			empty($_POST['name']) && $this->error('请输入行为标识!');
 			
-			$data['condition']=I('post.condition');
+			$_POST['condition']=I('post.condition');
 			$rule=M('think_auth_rule');
 			if($rule->create()){
-				if($result=$rule->add($data)){
+				if($result=$rule->add()){
 					
 					$this->success('添加成功',U('User/rule_manage'));
 				}else{
@@ -191,7 +191,7 @@ class UserController extends BaseController{
 	}
 	public function rule_del(){
 		
-		$id=I('get.id','intval',0);
+		$id=I('get.id',0,'intval');
 		
 		if($id){
 			$this->del('think_auth_rule','id='.$id);
@@ -200,7 +200,7 @@ class UserController extends BaseController{
 	}
 	
 	public function rule_edit(){
-		$id=I('get.id','intval',0);
+		$id=I('get.id',0,'intval');
 		if(IS_POST){
 			
 			$data['title']=I('post.title');
@@ -234,13 +234,13 @@ class UserController extends BaseController{
 		
 		if(IS_POST){
 			
-			$data['title']=I('post.title');
-			empty($data['title']) && $this->error('请输入用户组名称!');
-			$data['status']=I('post.status');
-			$data['rules']=I('post.rules');
-			$data['rules']=implode(',',$data['rules']);
+			$_POST['title']=I('post.title');
+			empty($_POST['title']) && $this->error('请输入用户组名称!');
+			$_POST['status']=I('post.status');
+			$_POST['rules']=I('post.rules');
+			$_POST['rules']=implode(',',$_POST['rules']);
 			$group=M('think_auth_group');
-			if($result=$group->add($data)){
+			if($result=$group->add()){
 				
 				$this->success('添加成功',U('User/group_manage'));
 			}else{
@@ -270,7 +270,7 @@ class UserController extends BaseController{
 	
 	public function group_del(){
 	
-		$id=I('get.id','intval',0);
+		$id=I('get.id',0,'intval');
 	
 		if($id){
 			$this->del('think_auth_group','id='.$id);
@@ -279,7 +279,7 @@ class UserController extends BaseController{
 	}
 	
 	public function group_edit(){
-		$id=I('get.id','intval',0);
+		$id=I('get.id',0,'intval');
 		if(IS_POST){
 			
 			$data['title']=I('post.title');
@@ -308,17 +308,60 @@ class UserController extends BaseController{
 		}
 	
 	}
-	
+	 public function sttus_type(){
+	 	
+	 	
+	 	$model->select();
+	 	
+	 	
+	 	$this->display();
+	 }
 	
 	public function status(){
 		
-		$id=I('get.id','intval',0);
-		$model=I('get.model','intval',0);
-		$status=I('get.status','intval',0);
+		$id=I('get.id',0,'intval');
+		$model=I('get.model',0,'intval');
+		$status=I('get.status',0,'intval');
 		$this->getstatus($model,$status,$id);
 		
 	}
 	
+	
+	public function admin_updatePassword(){
+		
+		if(UID!=C('ADMINISTRATOR_ID')){
+			$this->error('你没有权限');
+		}
+		
+		if(IS_POST){
+			$id=I('post.user_id',0,'intval');
+			
+			$data['password']=I('post.password');
+			empty($data['password']) && $this->error('请输入新密码!');
+			
+			$repassword=I('post.repassword');
+			empty($repassword) && $this->error('请输入确认密码!');
+			
+			if($data['password']!==$repassword){
+				$this->error('您输入的确认密码和新密码不一致!');
+			}
+			
+			$user=M('admin_user');
+			//修改密码
+			$data['dm']=rand_string(4);
+			$data['password']=md5(md5($data['password']).$data['dm']);
+			if($user->where('id='.$id)->save($data)){
+				$this->success('密码修改成功',U('User/manage'));
+			}else{
+				$this->error('密码修改失败!',U('User/manage'));
+			}
+		}else{
+			$id=I('get.id',0,'intval');
+			$this->assign('username',admin_name($id));
+			$this->assign('user_id',$id);
+			$this->display();
+		}
+	}
 	
 	
 }

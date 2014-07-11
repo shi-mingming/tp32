@@ -13,7 +13,7 @@ class BaseController extends Action{
 			
 			
 			$auth=new \Think\Auth();
-			if(!$auth->check(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME,UID) && UID>1){
+			if(!$auth->check(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME,UID) && UID>C('ADMINISTRATOR_ID')){
 				$this->error('你没有权限');
 			}
 			
@@ -76,6 +76,8 @@ class BaseController extends Action{
 	protected function getstatus($model,$status,$id){
 		$modelarr=array(
 				'1'=>'admin_user',
+				'2'=>'think_auth_rule',
+				'3'=>'think_auth_group',
 		);
 		$dm=M($modelarr[$model]);
 		$data['status']=$status;

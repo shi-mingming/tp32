@@ -19,15 +19,15 @@
 				<tr class="list-users">
 					<td>{#$vo.id#}</td>
 					<td>{#$vo.title#}</td>
-					<td>{#$vo.status|get_status_title#}</td>
+					<td data="{#$vo.id#}" class='status' title="单击此处修改状态">{#$vo.status|get_status_title#}</td>
 					<td>
 						<div class="btn-group" style="visibility:inherit">
 							<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">操作 <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="{#:U('group_edit?id='.$vo['id'])#}"><i class="icon-pencil"></i> 编辑</a></li>
 								<li><a href="{#:U('group_del?id='.$vo['id'])#}"><i class="icon-trash"></i> 删除</a></li>
-								<li class="nav-header">Permissions</li>
-								<li><a href="#"><i class="icon-lock"></i> Make <strong>User</strong></a></li>
+								<!-- <li class="nav-header">Permissions</li>
+								<li><a href="#"><i class="icon-lock"></i> Make <strong>User</strong></a></li> -->
 							</ul>
 						</div>
 					</td>
@@ -42,4 +42,26 @@
 		  </div>
         </div>
         </block>
+         <block name="script">
+		 <script type="text/javascript">
+		$(document).ready(function(){
+		   	$('.status').click(function(){
+		   			var infoid=$(this).attr('data');
+		   			$.get("{#:U(CONTROLLER_NAME.'/status/')#}?model=3&status="+$(this).children('span').attr('data')+"&id="+infoid,function(data){
+		   			if(data.status==1){
+		   				if($('.status[data='+infoid+']').children('span').attr('data')==1){
+		   					$('.status[data='+infoid+']').children('span').attr('class','label label-success').attr('data','0').html('启用');
+		   				}else{
+		   					$('.status[data='+infoid+']').children('span').attr('class','label label-important').attr('data','1').html('禁用');
+		   				}
+		   			}
+		   			alert(data.info);
+		   			
+		   		});
+		   		
+		   	});
+			
+		});
+	</script>
+</block>
        
